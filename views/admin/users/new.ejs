@@ -1,0 +1,51 @@
+<%- include('../../partials/header.ejs') %>
+<%- include ('../../partials/homenavbar.ejs') %>
+<body>
+    <div class="container">
+    <div class="container_forms">
+
+      <form id="form_new" method="post" action="/users/save">
+        <h2>Create an account</h2>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username">
+          </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" >
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary">Create an account</button>
+      </form>
+      
+    </div>
+</div>
+</body>
+
+<style>
+    body {
+        background-color: rgb(36, 35, 35);
+    }
+
+    .container {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+    }
+
+    .container_forms {
+        color: #fff;
+        display: flex;
+        gap: 30px;
+    }
+
+    #form_new {
+        width: 400px;
+    }
+</style>
+<%- include('../../partials/footer.ejs') %>

@@ -1,0 +1,53 @@
+<%- include('../../partials/header.ejs') %>
+<%- include ('../../partials/homenavbar.ejs') %>
+<body>
+  <div class="container">
+  <div class="container_forms">
+      <form id="form_login" method="post" action="">
+          <h3>Login</h3>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+        <a href="#">Or create an account</a>
+      </div>       
+      <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+  </div>
+</div>
+</body>
+
+<style>
+  body {
+      background-color: rgb(36, 35, 35);
+  }
+
+  .container {
+      padding: 20px;
+  }
+
+  .container_forms {
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+  }
+
+  #form_login {
+      width: 400px;
+  }
+
+  #form_create {
+      width: 400px;
+  }
+
+  a {
+      text-decoration: none;
+  }
+</style>
+
+<%- include ('../../partials/footer.ejs') -%>

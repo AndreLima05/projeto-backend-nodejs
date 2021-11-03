@@ -1,65 +1,6 @@
 <%- include('partials/header.ejs') %>
 <%- include ('partials/homenavbar.ejs') %>
 <body>
-    <div class="container">
-    <div class="container_forms">
-    <form id="form_loggin" method="post" action="">
-        <h3>Loggin</h3>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-          <a href="#">Or create an account</a>
-        </div>       
-        <button type="submit" class="btn btn-primary">Confirm</button>
-      </form>
 
-      <!-- <form id="form_create" method="post" action="">
-        <h3>Create an account</h3>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <button type="submit" class="btn btn-primary">Create an account</button>
-      </form> -->
-    </div>
-</div>
 </body>
-
-<style>
-    body {
-        background-color: rgb(36, 35, 35);
-    }
-
-    .container {
-        padding: 20px;
-    }
-
-    .container_forms {
-        color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-    }
-
-    #form_loggin {
-        width: 400px;
-    }
-
-    #form_create {
-        width: 400px;
-    }
-
-    a {
-        text-decoration: none;
-    }
-</style>
 <%- include ('partials/footer.ejs') -%>
