@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const app = express();
 const connection = require("./database/database");
 
@@ -23,6 +24,15 @@ app.use(express.urlencoded({
 
 // Instrução para o Express usar o EJS como View engine
 app.set('view engine','ejs');
+
+//Express-session
+app.use(session({
+    secret: "qualquercoisa", 
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 30000 }
+}))
+
 
 app.get("/",function(req,res){
     res.render("index");

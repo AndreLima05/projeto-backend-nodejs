@@ -3,16 +3,16 @@
 <body>
   <div class="container">
   <div class="container_forms">
-      <form id="form_login" method="post" action="">
+      <form id="form_login" method="post" action="/authenticate">
           <h3>Login</h3>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input type="email" class="form-control" name="email">
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
-        <a href="#">Or create an account</a>
+        <input type="password" class="form-control" name="password">
+        <a href="/admin/users/new">Or create an account</a>
       </div>       
       <button type="submit" class="btn btn-primary">Confirm</button>
     </form>
