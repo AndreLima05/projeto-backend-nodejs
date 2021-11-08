@@ -4,8 +4,10 @@ const app = express();
 const connection = require("./database/database");
 
 const usersControler = require("./controllers/usersController");
+const postsController = require("./controllers/postsController");
 
 const User = require("./models/User");
+const Post = require("./models/Post");
 
 //database
 connection
@@ -39,5 +41,6 @@ app.get("/",function(req,res){
 });
 
 app.use("/",usersControler);
+app.use("/",postsController);
 
 app.listen(5000,()=>{console.log("Servidor ativo!");});

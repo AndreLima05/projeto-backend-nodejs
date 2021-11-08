@@ -2,8 +2,19 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require('bcryptjs');
+const { render } = require("ejs");
 
-router.get("/admin/users/new",(req, res) => {
+router.get("/users", (req, res) => {
+    User.findAll().then(users => {
+        res.json(users);
+    });
+}); // colocar em backoffice
+
+router.get("/home/posts", (req, res) => {
+    res.render("admin/users/index");
+});
+
+router.get("/register",(req, res) => {
     res.render("admin/users/new");
 });
 
@@ -23,20 +34,15 @@ router.post("/users/save", (req, res) => {
                 email: email,
                 password: hash
             }).then(() => {
-                res.redirect("/");
+                res.redirect("/home/posts");
             }).catch((err) => {
                 res.redirect("/")
             });
         }else {
-                res.redirect("/admin/users/new")
+                res.redirect("/register")
             }
     });
 });
-
-router.get("/admin/users", (req, res) => {
-    res.render("admin/users/index");
-})
-
 
 router.get("/login", (req, res) => {
     res.render("admin/users/login");
@@ -58,7 +64,7 @@ router.post("/authenticate", (req, res) => {
                     id: user.id,
                     email: user.email
                 }
-                res.redirect("admin/users");
+                res.redirect("/home/posts");
             }else {
                 res.redirect("/login");
             }
@@ -66,6 +72,11 @@ router.post("/authenticate", (req, res) => {
             res.redirect("/login");
         }
     });
+});
+
+router.get("/logout", (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
 });
 
 module.exports = router;
