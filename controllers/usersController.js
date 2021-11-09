@@ -1,18 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
 const bcrypt = require('bcryptjs');
 const { render } = require("ejs");
+
+const User = require("../models/User");
 
 router.get("/users", (req, res) => {
     User.findAll().then(users => {
         res.json(users);
     });
 }); // colocar em backoffice
-
-router.get("/home/posts", (req, res) => {
-    res.render("admin/users/index");
-});
 
 router.get("/register",(req, res) => {
     res.render("admin/users/new");

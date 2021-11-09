@@ -41,6 +41,6 @@ app.get("/",function(req,res){
 });
 
 app.use("/",usersControler);
-app.use("/user",postsController);
+app.use("/",postsController);
 
 app.listen(5000,()=>{console.log("Servidor ativo!");});
