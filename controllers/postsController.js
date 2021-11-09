@@ -6,7 +6,7 @@ const adminAuth = require("../middleware/adminAuth");
 const Post = require("../models/Post");
 
 router.get("/new-post", adminAuth, (req, res) => {
-    res.render("admin/posts/new")
+    res.render("admin/posts/new");
 });
 
 router.post("/post/save", adminAuth, (req, res) => {
@@ -25,3 +25,5 @@ router.post("/post/save", adminAuth, (req, res) => {
     });
     
 });
+
+module.exports = router;
