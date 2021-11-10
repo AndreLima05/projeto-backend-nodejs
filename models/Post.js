@@ -3,10 +3,7 @@ const connection = require("../database/database");
 const User = require("../models/User");
 
 const Post = connection.define('posts', {
-    title:{
-        type: Sequelize.STRING,
-        allowNull: false
-    },description: {
+    description: {
         type: Sequelize.TEXT,
         allowNull: false
     },file: {
@@ -15,8 +12,8 @@ const Post = connection.define('posts', {
     }
 });
 
-//Post.sync({force: true});
 User.hasMany(Post);
 Post.belongsTo(User);
+//Post.sync({force: true});
 
 module.exports = Post;

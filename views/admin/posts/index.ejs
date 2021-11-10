@@ -2,22 +2,40 @@
 <%- include ('../../partials/navbar.ejs') %>
 <body>
     <!-- usar forEach para mostrar todos os posts -->
-    <table class="table table-bordered">
-        <tbody>
-                <tr>
-                    <td><%= post.title %></td>
-                    <td><%= post.description %></td>
-                    <td>
-                        <a href="/admin/posts/edit/<%= post.id %>" class="btn btn-warning">Editar</a>
-                        <form method="POST" action="" style="display: inline;">
-                            <input type="hidden" name="id">
-                            <button class="btn btn-danger">Apagar</button>
-                        </form>             
-                    </td>
-                </tr>
-        </tbody>
-    </table>
-</div>
+
+    <div class="container">
+        <div class="card"> 
+            <div class="card-header">
+                <h5>Share something</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/post/save">
+                <textarea class="form-control" placeholder="Write here..." id="post_form" name="description"></textarea><br>
+                <br>
+                <button class="btn btn-success">Publish</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <% post.forEach(post => { %>
+    <div class="container">
+        <div class="card"> 
+            <div class="card-header">
+                
+            </div>
+            <div class="card-body">
+                <p>lhsllkn</p>
+                <a href="/admin/posts/edit/<%= post.id %>" class="btn btn-warning">Editar</a>
+                    <form method="POST" action="/post/delete" style="display: inline;">
+                        <input type="hidden" name="id" value="<%= post.id %>">
+                        <button class="btn btn-danger">Apagar</button>
+                    </form>    
+            </div>
+        </div>
+    <% }) %>
+    </div>
+    
 
 </body>
 <%- include ('../../partials/footer.ejs') -%>
@@ -25,5 +43,7 @@
     body {
         background-color: #2d333b;
     }
-
+    .card {
+        width: 600px;
+    }
 </style>

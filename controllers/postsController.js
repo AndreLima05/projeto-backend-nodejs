@@ -4,6 +4,7 @@ const router = express.Router();
 const adminAuth = require("../middleware/adminAuth");
 
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 router.get("/home/posts", (req, res) => {
     Post.findAll().then(post => {
@@ -17,14 +18,14 @@ router.get("/new-post", adminAuth, (req, res) => {
 
 router.post("/post/save", adminAuth, (req, res) => {
 
-    var title = req.body.title;
     var description = req.body.description;
     var file = req.body.file;
+    var user = req.body.user;
 
     Post.create({
-        title: title,
         description: description,
         file: file,
+        userId: user
     }).then(() => {
         res.redirect("/home/posts");
     });
