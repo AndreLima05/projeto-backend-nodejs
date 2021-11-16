@@ -16,8 +16,7 @@ router.get("/register",(req, res) => {
 });
 
 router.post("/users/save", (req, res) => {
-    var userName = req.body.username;
-    console.log(req.body)
+    var username = req.body.username;
     var email = req.body.email;
     var password = req.body.password;
 
@@ -27,7 +26,7 @@ router.post("/users/save", (req, res) => {
             var hash = bcrypt.hashSync(password, salt);
 
             User.create({
-                username: userName,
+                username: username,
                 email: email,
                 password: hash
             }).then(() => {
@@ -59,6 +58,7 @@ router.post("/authenticate", (req, res) => {
             if(correct) {
                 req.session.user = {
                     id: user.id,
+                    username: user.username,
                     email: user.email
                 }
                 res.redirect("/home/posts");
@@ -73,7 +73,7 @@ router.post("/authenticate", (req, res) => {
 
 router.get("/logout", (req, res) => {
     req.session.destroy();
-    res.redirect("/");
+    res.redirect("/login");
 });
 
 module.exports = router;

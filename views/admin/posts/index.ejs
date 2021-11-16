@@ -1,8 +1,6 @@
 <%- include('../../partials/header.ejs') %>
 <%- include ('../../partials/navbar.ejs') %>
 <body>
-    <!-- usar forEach para mostrar todos os posts -->
-
     <div class="container">
         <div class="card"> 
             <div class="card-header">
@@ -17,7 +15,7 @@
             </div>
         </div>
     </div>
-    <br>
+    <br><!-- usar forEach para mostrar todos os posts -->
     <% post.forEach(post => { %>
     <div class="container">
         <div class="card"> 
@@ -25,7 +23,7 @@
                 
             </div>
             <div class="card-body">
-                <p>lhsllkn</p>
+                <p><%= post.description %></p>
                 <a href="/admin/posts/edit/<%= post.id %>" class="btn btn-warning">Editar</a>
                     <form method="POST" action="/post/delete" style="display: inline;">
                         <input type="hidden" name="id" value="<%= post.id %>">
@@ -33,9 +31,8 @@
                     </form>    
             </div>
         </div>
-    <% }) %>
-    </div>
-    
+    </div>   
+    <% }) %>  
 
 </body>
 <%- include ('../../partials/footer.ejs') -%>
@@ -43,6 +40,11 @@
     body {
         background-color: #2d333b;
     }
+
+    .container {
+        padding: 15px;
+    }
+
     .card {
         width: 600px;
     }

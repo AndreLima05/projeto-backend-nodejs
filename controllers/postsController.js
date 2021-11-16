@@ -1,12 +1,13 @@
-const { render } = require("ejs");
 const express = require("express");
 const router = express.Router();
+const { render } = require("ejs");
 const adminAuth = require("../middleware/adminAuth");
 
-const Post = require("../models/Post");
 const User = require("../models/User");
 
-router.get("/home/posts", (req, res) => {
+const Post = require("../models/Post");
+
+router.get("/home/posts", adminAuth, (req, res) => {
     Post.findAll().then(post => {
         res.render("admin/posts/index", {post: post});
     })
@@ -20,12 +21,14 @@ router.post("/post/save", adminAuth, (req, res) => {
 
     var description = req.body.description;
     var file = req.body.file;
-    var user = req.body.user;
+    var user = req.session.user.id;
+    console.log(req.body);
+    console.log(req.session.user);
 
     Post.create({
         description: description,
         file: file,
-        userId: user
+        userId: req.session.user.id
     }).then(() => {
         res.redirect("/home/posts");
     });
@@ -37,7 +40,7 @@ router.get("/post/edit/:id", adminAuth, (req, res) => {
     Post.findByPk(id).then(post => {
         if(post != undefined) {
             Post.findAll().then(users => {
-                res.render("admin/posts/edit", {post: post})
+                res.render("admin/posts/edit")
             });
         } else {
             res.redirect("/home/post")
@@ -49,11 +52,10 @@ router.get("/post/edit/:id", adminAuth, (req, res) => {
 
 router.post("/post/update", adminAuth, (req, res) => {
     var id = req.body.id;
-    var title = req.body.title;
     var description = req.body.description;
     var file = req.body.file;
 
-    Post.update({title: title, description: description, file: file}, {
+    Post.update({description: description, file: file}, {
         where: {
             id: id
         }
@@ -62,6 +64,25 @@ router.post("/post/update", adminAuth, (req, res) => {
     }).catch(err => {
         res.redirect("/home/posts");
     });
+});
+
+router.post("/post/delete", adminAuth, (req, res) => {
+    var id = req.body.id;
+    if(id != undefined) {
+        if(!isNaN(id)) {
+            Post.destroy({
+                where: {
+                    id: id
+                }
+            }).then (() => {
+                res.redirect("/home/posts");
+            });
+        }else {
+            res.redirect("/home/posts");
+        }
+    }else {
+        res.redirect("/home/posts");
+    }
 });
 
 module.exports = router;
