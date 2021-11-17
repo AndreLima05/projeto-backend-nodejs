@@ -1,79 +1,82 @@
-<%- include('../../partials/header.ejs') %>
-<%- include ('../../partials/navbar.ejs') %>
+<%- include('../../partials/header.ejs') %> <%- include
+('../../partials/navbar.ejs') %>
 <body>
-    <div class="container">
-        <div class="card"> 
-            <div class="card-header">
-                <h5>Share something</h5>
-            </div>
-            <div class="card-body">
-                <form method="POST" action="/post/save">
-                <textarea class="form-control" placeholder="Write here..." id="post_form" name="description"></textarea><br>
-                <br>
-                <button class="btn btn-success">Share</button>
-                </form>
-            </div>
-        </div>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h5>Share something</h5>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/post/save">
+          <textarea class="form-control" placeholder="Write here..." id="post_form" name="description"></textarea
+          ><br />
+          <br />
+          <button class="btn btn-success">Share</button>
+        </form>
+      </div>
     </div>
-    <br><!-- usar forEach para mostrar todos os posts -->
-    <% posts.forEach(post => { %>
-    <div class="container">
-        <div class="card"> 
-            <div class="card-header">
-                <%= post.username %>
-            </div>
-            <div class="card-header">
-                <p><%= post.description %></p>
-                <p><%= post.isFromUser %></p>
-                <!-- <a href="/admin/posts/edit/<%= post.id %>" class="btn btn-warning btn-hidden">Editar</a>
-                    <form method="POST" action="/post/delete" style="display: inline;" onsubmit="apagar(event, this)">
-                        <input type="hidden" name="id" value="<%= post.id %>">
-                        <button class="btn btn-danger btn-hidden">Apagar</button>
-                    </form> -->
-                </div>       
-            <div class="card-body">
-                <form method="POST" action="/comment/save" style="display: inline;">
-                    <input type="text" name="comment"><button class="btn btn-success">Comment</button>
-                    <input type="hidden" name="id" value="<%= post.id %>">
-                </form>
-            </div>
-            <hr>
-            <% post.share_comments.forEach( sharedComment => { %>
-            <div class="car-body">
-                <p> <%= sharedComment.comment %> </p>
-            </div>
-            <% }) %>
-        </div>
-    </div>   
-    <% }) %>
-
-   <!--  <script>
-        function apagar(event, form) {
-            event.preventDefault();
-            console.log(form);
-            if(form != req.session.user.id) {
-                alert("EStá quieto");
-            }else {
-                var decision = confirm("Deseja apagar este post?");
-                if(decision){
-                    form.submit();
-                    }   
-                }
-            }
-    </script> -->
-
+  </div>
+  <br /><!-- usar forEach para mostrar todos os posts -->
+  <% posts.forEach(post => { %>
+  <div class="container">
+    <div class="card">
+      <div class="card-header"><%= post.username %></div>
+      <div class="card-header">
+        <p><%= post.description %></p>
+        <% if(post.isFromUser == true) { %>
+        <a href="/post/edit/<%= post.id %>" class="btn btn-warning btn-hidden">Edit</a>
+        <form method="POST" action="/post/delete" style="display: inline">
+          <input type="hidden" name="id" value="<%= post.id %>" />
+          <button class="btn btn-danger btn-hidden">Delete</button>
+        </form>
+        <% } %>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/comment/save" style="display: inline">
+          <input type="text" name="comment" /><button class="btn btn-success">
+            Comment
+          </button>
+          <input type="hidden" name="id" value="<%= post.id %>" />
+        </form>
+      </div>
+      <hr />
+      <% post.share_comments.forEach( sharedComment => { %>
+      <div class="card-body-comments">
+        <p><strong><%= sharedComment.username %></strong></p>
+        <span><%= sharedComment.comment %></span>
+        <span class="date"><%= sharedComment.updatedAt %></span>
+      </div>
+      <br>
+      <% }) %>
+    </div>
+  </div>
+  <% }) %>
 </body>
 <%- include ('../../partials/footer.ejs') -%>
 <style>
-    body {
-        background-color: #2d333b;
-    }
+  body {
+    background-color: #2d333b;
+  }
 
-    .container {
-        padding: 15px;
-    }
+  .container {
+    padding: 15px;
+  }
 
-    .card {
-        width: 600px;
-    }
+  .card {
+    width: 600px;
+  }
+
+  .card-body-comments {
+      border: 1px solid #000;
+      padding: 5px;
+  }
+
+  .card-body-comments p {
+      margin-bottom: 5px;
+  }
+
+  .date {
+      font-size: 0.6em;
+      float: right;
+  }
 </style>

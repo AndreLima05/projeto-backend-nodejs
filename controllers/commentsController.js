@@ -4,8 +4,8 @@ const adminAuth = require("../middleware/adminAuth");
 
 const ShareComment = require("../models/ShareComment");
 
-router.post("/comment/save", (req, res) => {
-console.log(req.session.user)
+router.post("/comment/save", adminAuth, (req, res) => {
+
     var comment = req.body.comment;
     var postId = req.body.id;
 

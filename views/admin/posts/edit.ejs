@@ -2,7 +2,12 @@
 <%- include ('../../partials/navbar.ejs') %>
 <body>
     
-    
+    <form method="POST" action="/post/update" style="display: inline">
+        <input type="text" name="description" value="<%= post.description %>"/><button class="btn btn-success">
+          Update
+        </button>
+        <input type="hidden" name="id" value="<%= post.id %>" />
+      </form>
 
 </body>
 <%- include ('../../partials/footer.ejs') -%>
