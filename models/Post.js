@@ -3,7 +3,10 @@ const connection = require("../database/database");
 const User = require("../models/User");
 
 const Post = connection.define('posts', {
-    description: {
+    username:{
+        type: Sequelize.STRING,
+        allowNull: false,
+    },description: {
         type: Sequelize.TEXT,
         allowNull: false
     },file: {

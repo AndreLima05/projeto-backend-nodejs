@@ -1,4 +1,5 @@
 const express = require("express");
+const dotenv = require('dotenv');
 const session = require("express-session");
 const app = express();
 const connection = require("./database/database");
@@ -8,6 +9,9 @@ const postsController = require("./controllers/postsController");
 
 const User = require("./models/User");
 const Post = require("./models/Post");
+
+// Load env vars
+dotenv.config({ path: './config/config.env' });
 
 //database
 connection
@@ -42,4 +46,6 @@ app.get("/",function(req,res){
 app.use("/",usersControler);
 app.use("/",postsController);
 
-app.listen(5000,()=>{console.log("Servidor ativo!");});
+const PORT = process.env.PORT || 5000;
+
+const server = app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}!`));

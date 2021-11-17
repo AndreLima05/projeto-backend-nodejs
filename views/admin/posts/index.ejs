@@ -10,7 +10,7 @@
                 <form method="POST" action="/post/save">
                 <textarea class="form-control" placeholder="Write here..." id="post_form" name="description"></textarea><br>
                 <br>
-                <button class="btn btn-success">Publish</button>
+                <button class="btn btn-success">Share</button>
                 </form>
             </div>
         </div>
@@ -20,19 +20,34 @@
     <div class="container">
         <div class="card"> 
             <div class="card-header">
-                
+                <%= post.username %>
             </div>
             <div class="card-body">
                 <p><%= post.description %></p>
-                <a href="/admin/posts/edit/<%= post.id %>" class="btn btn-warning">Editar</a>
-                    <form method="POST" action="/post/delete" style="display: inline;">
+                <a href="/admin/posts/edit/<%= post.id %>" class="btn btn-warning btn-hidden">Editar</a>
+                    <form method="POST" action="/post/delete" style="display: inline;" onsubmit="apagar(event, this)">
                         <input type="hidden" name="id" value="<%= post.id %>">
-                        <button class="btn btn-danger">Apagar</button>
+                        <button class="btn btn-danger btn-hidden">Apagar</button>
                     </form>    
             </div>
         </div>
     </div>   
-    <% }) %>  
+    <% }) %>
+
+    <script>
+        function apagar(event, form) {
+            event.preventDefault();
+            console.log(form);
+            if(form != req.session.user.id) {
+                alert("EStá quieto");
+            }else {
+                var decision = confirm("Deseja apagar este post?");
+                if(decision){
+                    form.submit();
+                    }   
+                }
+            }
+    </script>
 
 </body>
 <%- include ('../../partials/footer.ejs') -%>
