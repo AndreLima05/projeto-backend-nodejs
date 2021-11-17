@@ -16,7 +16,7 @@
         </div>
     </div>
     <br><!-- usar forEach para mostrar todos os posts -->
-    <% post.forEach(post => { %>
+    <% posts.forEach(post => { %>
     <div class="container">
         <div class="card"> 
             <div class="card-header">
@@ -24,17 +24,25 @@
             </div>
             <div class="card-header">
                 <p><%= post.description %></p>
+                <p><%= post.isFromUser %></p>
                 <!-- <a href="/admin/posts/edit/<%= post.id %>" class="btn btn-warning btn-hidden">Editar</a>
                     <form method="POST" action="/post/delete" style="display: inline;" onsubmit="apagar(event, this)">
                         <input type="hidden" name="id" value="<%= post.id %>">
                         <button class="btn btn-danger btn-hidden">Apagar</button>
                     </form> -->
-            </div>
+                </div>       
             <div class="card-body">
                 <form method="POST" action="/comment/save" style="display: inline;">
                     <input type="text" name="comment"><button class="btn btn-success">Comment</button>
+                    <input type="hidden" name="id" value="<%= post.id %>">
                 </form>
             </div>
+            <hr>
+            <% post.share_comments.forEach( sharedComment => { %>
+            <div class="car-body">
+                <p> <%= sharedComment.comment %> </p>
+            </div>
+            <% }) %>
         </div>
     </div>   
     <% }) %>

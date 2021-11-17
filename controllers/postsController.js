@@ -1,15 +1,25 @@
 const express = require("express");
 const router = express.Router();
-const { render } = require("ejs");
 const adminAuth = require("../middleware/adminAuth");
 
 const User = require("../models/User");
-
+const ShareComment = require("../models/ShareComment");
 const Post = require("../models/Post");
 
+
 router.get("/home/posts", adminAuth, (req, res) => {
-    Post.findAll().then(post => {
-        res.render("admin/posts/index", {post: post});
+    const id = req.session.user.id
+    Post.findAll({ 
+        include: { model: ShareComment }
+     }).then(post => {
+        const mappedPosts = post.map(item => {
+            console.log(item)
+            return {
+                ...item, 
+                isFromUser: id === item.userId
+            }
+        })
+        res.render("admin/posts/index", {posts: mappedPosts});
     })
 });
 
@@ -82,10 +92,14 @@ router.post("/post/delete", adminAuth, (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
+    console.log(req.session.user)
     Post.findAll({ 
         include: [
-           { model: User }
-        ]
+           { model: User },
+        ],
+        where: {
+            userId: req.session.user.id
+        }
     }).then(post => {
         res.render("admin/users/profile", {post: post});
     }) 

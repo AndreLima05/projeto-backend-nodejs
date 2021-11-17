@@ -1,19 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const { render } = require("ejs");
 const adminAuth = require("../middleware/adminAuth");
 
-const User = require("../models/User");
 const ShareComment = require("../models/ShareComment");
 
-router.post("/comment/save", adminAuth, (req, res) => {
-
+router.post("/comment/save", (req, res) => {
+console.log(req.session.user)
     var comment = req.body.comment;
+    var postId = req.body.id;
 
     ShareComment.create({
-        comment: comment,
+        comment,
         userId: req.session.user.id,
-        username: req.session.user.username
+        username: req.session.user.username,
+        postId
     }).then(() => {
         res.redirect("/home/posts");
     });
