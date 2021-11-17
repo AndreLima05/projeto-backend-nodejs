@@ -22,19 +22,24 @@
             <div class="card-header">
                 <%= post.username %>
             </div>
-            <div class="card-body">
+            <div class="card-header">
                 <p><%= post.description %></p>
-                <a href="/admin/posts/edit/<%= post.id %>" class="btn btn-warning btn-hidden">Editar</a>
+                <!-- <a href="/admin/posts/edit/<%= post.id %>" class="btn btn-warning btn-hidden">Editar</a>
                     <form method="POST" action="/post/delete" style="display: inline;" onsubmit="apagar(event, this)">
                         <input type="hidden" name="id" value="<%= post.id %>">
                         <button class="btn btn-danger btn-hidden">Apagar</button>
-                    </form>    
+                    </form> -->
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/comment/save" style="display: inline;">
+                    <input type="text" name="comment"><button class="btn btn-success">Comment</button>
+                </form>
             </div>
         </div>
     </div>   
     <% }) %>
 
-    <script>
+   <!--  <script>
         function apagar(event, form) {
             event.preventDefault();
             console.log(form);
@@ -47,7 +52,7 @@
                     }   
                 }
             }
-    </script>
+    </script> -->
 
 </body>
 <%- include ('../../partials/footer.ejs') -%>
