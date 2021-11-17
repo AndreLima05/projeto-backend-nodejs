@@ -13,10 +13,6 @@ router.get("/home/posts", adminAuth, (req, res) => {
     })
 });
 
-router.get("/new-post", adminAuth, (req, res) => {
-    res.render("admin/posts/new");
-});
-
 router.post("/post/save", adminAuth, (req, res) => {
 
     var description = req.body.description;
@@ -86,7 +82,13 @@ router.post("/post/delete", adminAuth, (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
-    res.render("admin/users/profile");
+    Post.findAll({ 
+        include: [
+           { model: User }
+        ]
+    }).then(post => {
+        res.render("admin/users/profile", {post: post});
+    }) 
 });
 
 module.exports = router;

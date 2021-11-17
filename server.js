@@ -6,9 +6,11 @@ const connection = require("./database/database");
 
 const usersControler = require("./controllers/usersController");
 const postsController = require("./controllers/postsController");
+const commentsController = require("./controllers/commentsController");
 
 const User = require("./models/User");
 const Post = require("./models/Post");
+const ShareComment = require("./models/ShareComment");
 
 // Load env vars
 dotenv.config({ path: './config/config.env' });
@@ -45,6 +47,7 @@ app.get("/",function(req,res){
 
 app.use("/",usersControler);
 app.use("/",postsController);
+app.use("/",commentsController);
 
 const PORT = process.env.PORT || 5000;
 
